@@ -30,30 +30,6 @@
 			],
 			"cache": true
 		},
-		"@nx/jest:jest": {
-			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-			"cache": true,
-			"options": {
-				"passWithNoTests": true
-			},
-			"configurations": {
-				"ci": {
-					"ci": true,
-					"codeCoverage": true
-				}
-			}
-		},
-		"@nx/eslint:lint": {
-			"inputs": [
-				"default",
-				"^default",
-				"{workspaceRoot}/.eslintrc.json",
-				"{workspaceRoot}/.eslintignore",
-				"{workspaceRoot}/eslint.config.js",
-				"{workspaceRoot}/tools/eslint-rules/**/*"
-			],
-			"cache": true
-		},
 		"@nx/angular:package": {
 			"cache": true,
 			"dependsOn": ["^build"],
@@ -79,10 +55,24 @@
 			"dependsOn": ["^build"],
 			"inputs": ["production", "^production"]
 		},
-		"@nx/vitest:test": {
-			"cache": true,
-			"inputs": ["default", "^production"]
-		}
+		"lint": [
+			{
+				"filter": {
+					"plugin": "@nx/eslint/plugin"
+				},
+				"inputs": [
+					"default",
+					"^default",
+					"{workspaceRoot}/.eslintrc.json",
+					"{workspaceRoot}/.eslintignore",
+					"{workspaceRoot}/eslint.config.js",
+					"{workspaceRoot}/tools/eslint-rules/**/*",
+					{
+						"externalDependencies": ["eslint"]
+					}
+				]
+			}
+		]
 	},
 	"namedInputs": {
 		"default": ["{projectRoot}/**/*", "sharedGlobals"],
@@ -157,12 +147,6 @@
 		"@schematics/angular:service": {
 			"type": "service"
 		},
-		"@nx/angular:scam": {
-			"type": "component"
-		},
-		"@nx/angular:scam-directive": {
-			"type": "directive"
-		},
 		"@nx/angular:guard": {
 			"typeSeparator": "."
 		},
@@ -231,5 +215,35 @@
 	"analytics": true,
 	"migrate": {
 		"agentic": true
-	}
+	},
+	"affected": {
+		"legacy": true
+	},
+	"plugins": [
+		{
+			"plugin": "@nx/vitest",
+			"options": {
+				"testMode": "watch",
+				"testTargetName": "test"
+			},
+			"include": ["libs/plugin/**/*"]
+		},
+		{
+			"plugin": "@nx/eslint/plugin",
+			"options": {
+				"targetName": "lint"
+			},
+			"include": [
+				"apps/examples/**/*",
+				"libs/cannon/**/*",
+				"libs/core/**/*",
+				"libs/ecctrl/**/*",
+				"libs/postprocessing/**/*",
+				"libs/rapier/**/*",
+				"libs/soba/**/*",
+				"libs/theatre/**/*",
+				"libs/tweakpane/**/*"
+			]
+		}
+	]
 }

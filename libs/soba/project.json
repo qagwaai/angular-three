@@ -9,6 +9,7 @@
 		"build": {
 			"executor": "@nx/angular:package",
 			"outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+			"defaultConfiguration": "production",
 			"options": {
 				"project": "libs/soba/ng-package.json",
 				"tsConfig": "libs/soba/tsconfig.lib.json"
@@ -18,24 +19,24 @@
 					"tsConfig": "libs/soba/tsconfig.lib.prod.json"
 				},
 				"development": {}
-			},
-			"defaultConfiguration": "production"
+			}
 		},
 		"test": {
 			"executor": "@analogjs/vitest-angular:test"
 		},
-		"lint": {
-			"executor": "@nx/eslint:lint",
-			"outputs": ["{options.outputFile}"]
-		},
 		"storybook": {
 			"executor": "@storybook/angular:start-storybook",
+			"continuous": true,
 			"options": {
 				"port": 4400,
 				"compodoc": false,
 				"configDir": "libs/soba/.storybook",
 				"browserTarget": "soba:build:development",
 				"experimentalZoneless": false
+			},
+			"readyWhen": {
+				"port": "{env.SBCONFIG_PORT ?? options.port ?? 9009}",
+				"host": "{env.SBCONFIG_HOSTNAME ?? options.host ?? localhost}"
 			}
 		},
 		"build-storybook": {

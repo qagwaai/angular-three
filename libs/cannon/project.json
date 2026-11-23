@@ -9,6 +9,7 @@
 		"build": {
 			"executor": "@nx/angular:package",
 			"outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+			"defaultConfiguration": "production",
 			"options": {
 				"project": "libs/cannon/ng-package.json",
 				"tsConfig": "libs/cannon/tsconfig.lib.json"
@@ -18,14 +19,10 @@
 					"tsConfig": "libs/cannon/tsconfig.lib.prod.json"
 				},
 				"development": {}
-			},
-			"defaultConfiguration": "production"
+			}
 		},
 		"test": {
 			"executor": "@analogjs/vitest-angular:test"
-		},
-		"lint": {
-			"executor": "@nx/eslint:lint"
 		},
 		"publish-next": {
 			"command": "npm publish --tag=next",
