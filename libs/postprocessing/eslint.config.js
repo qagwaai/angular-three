@@ -49,11 +49,11 @@ module.exports = [
 					ignoredDependencies: [
 						'@analogjs/vite-plugin-angular',
 						'@angular/common',
-						'@nx/vite',
 						'angular-three',
 						'ngxtension',
 						'tslib',
 						'vite',
+						'vite-tsconfig-paths',
 					],
 				},
 			],

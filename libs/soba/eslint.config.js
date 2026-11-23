@@ -38,7 +38,9 @@ module.exports = [
 	{
 		files: ['setup-canvas.ts', '**/*.stories.ts'],
 		rules: {
-			'@typescript-eslint/ban-types': 'off',
+			'@typescript-eslint/no-empty-object-type': 'off',
+			'@typescript-eslint/no-unsafe-function-type': 'off',
+			'@typescript-eslint/no-wrapper-object-types': 'off',
 			'@typescript-eslint/no-empty-function': 'off',
 		},
 	},
@@ -62,7 +64,6 @@ module.exports = [
 					ignoredDependencies: [
 						'@analogjs/vite-plugin-angular',
 						'@angular/common',
-						'@nx/vite',
 						'@storybook/angular',
 						'angular-three',
 						'hls.js',
@@ -70,6 +71,7 @@ module.exports = [
 						'ngxtension',
 						'tslib',
 						'vite',
+						'vite-tsconfig-paths',
 					],
 				},
 			],
