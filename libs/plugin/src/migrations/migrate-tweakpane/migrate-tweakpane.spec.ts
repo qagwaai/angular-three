@@ -45,11 +45,7 @@ const imports = [NgtTweakPane, NgtTweakFolder, NgtTweakText];
 
 		const updatedContent = tree.read('libs/my-lib/src/index.ts', 'utf-8');
 		expect(updatedContent).toMatchInlineSnapshot(`
-			"import {
-			  TweakpanePane,
-			  TweakpaneFolder,
-			  TweakpaneText,
-			} from 'angular-three-tweakpane';
+			"import { TweakpanePane, TweakpaneFolder, TweakpaneText } from 'angular-three-tweakpane';
 
 			const template = \`
 			    <tweakpane-pane>
@@ -62,5 +58,6 @@ const imports = [NgtTweakPane, NgtTweakFolder, NgtTweakText];
 			const imports = [TweakpanePane, TweakpaneFolder, TweakpaneText];
 			"
 		`);
-	});
+		// formatFiles fetches oxfmt and the generator is slow on a cold start
+	}, 30_000);
 });
